@@ -3,34 +3,38 @@ import './App.css';
 import { fetchData } from '../../Utils/fetchData'
 import Movies from '../Movies/Movies'
 import { APIkey } from '../../Utils/APIkey';
+import { addMovies } from '../../Actions/index'
+import { connect } from 'react-redux'
 
 
 class App extends Component {
-  constructor(){
-    super()
-    this.state = {
-      movies: []
-    }
-  }
 
   componentDidMount = async () => {
-    const fetchMovies = await fetchData(APIkey)
-    this.setState({ movies: fetchMovies.results})
+    this.fetchMovies()
+  }
+
+  fetchMovies = async () => {
+    const movies = await fetchData(APIkey)
+    this.props.addMovies(movies.results)
   }
 
   render() {
-    const { movies } = this.state
+   
     return (
       <div className="App">
         <header className="App-header">
           <h1>Movie Tracker</h1>
         </header>
-        <Movies movies={movies} />
+        <Movies />
       </div>
     );
   }
 }
 
-export default App;
+export const mapDispatchToProps = (dispatch) => ({
+  addMovies: (movies) => dispatch(addMovies(movies))
+})
+
+export default connect(null, mapDispatchToProps)(App);
 
 

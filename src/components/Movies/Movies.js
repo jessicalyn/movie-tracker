@@ -1,13 +1,11 @@
 import React from 'react'
 import { Component } from 'react'
 import { Card } from '../Card/Card'
+import { connect } from 'react-redux'
 
 import './Movies.css'
 
-export default class Movies extends Component {
-  constructor(props) {
-    super(props)
-  }
+export class Movies extends Component {
 
   render(){
     const { movies } = this.props
@@ -22,3 +20,8 @@ export default class Movies extends Component {
   }
 }
 
+export const mapStateToProps = (state) => ({
+  movies: state.movies
+})
+
+export default connect(mapStateToProps)(Movies)
