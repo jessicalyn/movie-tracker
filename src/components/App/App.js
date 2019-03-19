@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import { fetchData } from '../../Utils/fetchData'
 import Movies from '../Movies/Movies'
-import { APIkey } from '../../Utils/APIkey'
+import { APIkey } from '../../Utils/APIkey';
+
 
 class App extends Component {
   constructor(){
@@ -31,3 +32,5 @@ class App extends Component {
 }
 
 export default App;
+
+

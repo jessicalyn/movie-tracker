@@ -1,6 +1,7 @@
 import React from 'react'
 import { Component } from 'react'
 import { Card } from '../Card/Card'
+
 import './Movies.css'
 
 export default class Movies extends Component {
@@ -20,3 +21,4 @@ export default class Movies extends Component {
     )
   }
 }
+
