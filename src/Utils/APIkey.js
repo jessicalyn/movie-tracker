@@ -1,0 +1,1 @@
+export const APIkey = "https://api.themoviedb.org/3/movie/now_playing?api_key=93b214404de014118b64ce033e70ac99&language=en-US&page=1"
