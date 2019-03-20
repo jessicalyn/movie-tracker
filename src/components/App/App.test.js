@@ -2,8 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { App, mapDispatchToProps } from './App'
 import { addMovies } from '../../Actions'
+import { shallow } from 'enzyme'
 
 describe('App', () => {
+  describe('App', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = shallow(<App />)
+    })
+
+    it('it should match the snapshot with all data passed in', () => {
+      expect(wrapper).toMatchSnapshot()
+    })
+
+    it('should invoke fetchMovies when component mounts', () => {
+      
+    })
+  });
 
   describe('mapDispatchToProps', () => {
     it('should call dispatch when using a function from mapDispatchToProps', () => {
