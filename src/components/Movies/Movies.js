@@ -2,7 +2,6 @@ import React from 'react'
 import { Component } from 'react'
 import { Card } from '../Card/Card'
 import { connect } from 'react-redux'
-
 import './Movies.css'
 
 export class Movies extends Component {

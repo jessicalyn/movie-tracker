@@ -5,6 +5,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-image: url(images/nicolas-comte-552469-unsplash.jpg) */
 }
 
 code {

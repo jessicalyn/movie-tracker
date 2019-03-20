@@ -7,7 +7,7 @@ import { addMovies } from '../../Actions/index'
 import { connect } from 'react-redux'
 
 
-class App extends Component {
+export class App extends Component {
 
   componentDidMount = async () => {
     this.fetchMovies()
