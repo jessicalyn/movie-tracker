@@ -5,7 +5,8 @@ import Movies from '../Movies/Movies'
 import { APIkey } from '../../Utils/APIkey';
 import { addMovies } from '../../Actions/index'
 import { connect } from 'react-redux'
-
+import { NavLink, Route } from 'react-router-dom'
+import { Login } from '../../Components/Login'
 
 export class App extends Component {
 
@@ -19,13 +20,15 @@ export class App extends Component {
   }
 
   render() {
-   
     return (
       <div className="App">
         <header className="App-header">
           <h1>Movie Tracker</h1>
+          <h2>fggesgr</h2>
+          <NavLink to="/login" className="nav">Login</NavLink>
         </header>
-        <Movies />
+        <Route exact path='/' component={Movies} />
+        <Route exact path='/login' component={Login} />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Card } from '../Card/Card'
+import { Card } from '../../Components/Card/Card'
 import { connect } from 'react-redux'
 import './Movies.css'
 
