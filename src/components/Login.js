@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { loginUser } from '../Actions'
+import { loginUser } from '../Actions/index'
 import { connect } from 'react-redux'
 
 export class Login extends Component {
@@ -19,11 +19,19 @@ export class Login extends Component {
   }
 
   handleSubmit = async (e) => {
-    const { email, password} = this.state
     e.preventDefault()
+    const { email, password} = this.state
     const url = 'http://localhost:3000/api/users'
     const data = { email: email.toLowerCase(), password: password }
-    try {
+    const validator = await this.validateUser(url, data)
+    console.log(validator)
+    if(typeof(validator) === 'object'){
+      this.props.loginUser(validator.email)
+    }
+  }
+
+  validateUser = async (url, data) => {
+    try{
       const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -32,10 +40,11 @@ export class Login extends Component {
         }
       })
       const success = await response.json()
-      return console.log('Success:', JSON.stringify(success))
-    } catch(error) {
+      return success.data
+      }
+      catch(error) {
         return this.setState({ error: error.message})
-    }
+      }
   }
 
   render() {

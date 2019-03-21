@@ -1,6 +1,7 @@
 export const userReducer = (state=[], action) => {
   switch (action.type){
     case 'LOGIN_USER':
+    console.log("does this work")
       const usersState = state.map(user => {
         if(user.email === action.email){
           user.loggedIn = true
@@ -14,6 +15,7 @@ export const userReducer = (state=[], action) => {
       return action.user
     
     default:
+    console.log("default reducer")
       return state
   }
 }
