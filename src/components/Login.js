@@ -1,5 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
+import { fetchData } from '../Utils/fetchData'
 
 export class Login extends Component {
   constructor() {
@@ -15,9 +16,17 @@ export class Login extends Component {
     this.setState({ [name]: value })
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault()
-    
+    const user = this.state
+    const validUser = await fetchData("http://localhost:3000/api/users", {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    console.log("user", validUser)
   }
 
   render() {
