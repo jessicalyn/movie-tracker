@@ -14,7 +14,12 @@ export class Login extends Component {
 
   handleChange = (e) => {
     const { name, value } = e.target
+    if(e.target.name === "email"){
+      const email = value.toLowerCase()
+      this.setState({ email })
+    } else {
     this.setState({ [name]: value })
+    }
   }
 
   handleSubmit = async (e) => {
@@ -39,7 +44,7 @@ export class Login extends Component {
           <input type="text" name="email" value={ this.state.email } onChange={ this.handleChange }></input>
           <input type="text" name="password" value={ this.state.password } onChange={ this.handleChange }></input>
           <button>Submit</button>
-          {this.state.error && <p>Error logging in, please try again!</p>}
+          {this.state.error && <p>Error logging in, please try again! Or SignUp</p>}
         </form>
       </section>
     )
