@@ -24,7 +24,6 @@ export class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1>Movie Tracker</h1>
-          <h2>fggesgr</h2>
           <NavLink to="/login" className="nav">Login</NavLink>
         </header>
         <Route exact path='/' component={Movies} />
