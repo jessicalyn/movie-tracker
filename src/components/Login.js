@@ -7,7 +7,8 @@ export class Login extends Component {
     super()
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      error: ""
     }
   }
 
@@ -18,15 +19,17 @@ export class Login extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault()
-    const user = this.state
-    const validUser = await fetchData("http://localhost:3000/api/users", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    console.log("user", validUser)
+    var url = 'http://localhost:3000/api/users';
+    var data = { email: this.state.email, password: this.state.password };
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.json())
+      .then(response => console.log('Success:', JSON.stringify(response)))
+      .catch(error => this.setState({ error: error.message}))
   }
 
   render() {
@@ -36,6 +39,7 @@ export class Login extends Component {
           <input type="text" name="email" value={ this.state.email } onChange={ this.handleChange }></input>
           <input type="text" name="password" value={ this.state.password } onChange={ this.handleChange }></input>
           <button>Submit</button>
+          {this.state.error && <p>Error logging in, please try again!</p>}
         </form>
       </section>
     )
