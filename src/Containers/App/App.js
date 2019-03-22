@@ -6,8 +6,9 @@ import { APIkey } from '../../Utils/APIkey';
 import { addMovies } from '../../Actions/index'
 import { connect } from 'react-redux'
 import { NavLink, Route } from 'react-router-dom'
-import { Login } from '../../Components/Login'
 import Signup from '../Signup'
+import Login  from '../../Components/Login'
+
 
 export class App extends Component {
 

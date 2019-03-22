@@ -1,8 +1,11 @@
+
 import React from "react";
 import { Component } from "react";
 import { fetchData } from "../Utils/fetchData";
 import { addUser } from "../Actions/index";
-import { connect } from "react-redux";
+import { loginUser } from '../Actions/index'
+import { connect } from 'react-redux'
+
 
 export class Login extends Component {
   constructor() {
@@ -15,37 +18,42 @@ export class Login extends Component {
     };
   }
 
-  handleChange = e => {
-    const { name, value } = e.target;
-    if (e.target.name === "email") {
-      const email = value.toLowerCase();
-      this.setState({ email });
-    } else {
-      this.setState({ [name]: value });
+
+
+  handleChange = (e) => {
+    const { name, value } = e.target
+    this.setState({ [name]: value })
+  }
+
+  handleSubmit = async (e) => {
+    e.preventDefault()
+    const { email, password} = this.state
+    const url = 'http://localhost:3000/api/users'
+    const data = { email: email.toLowerCase(), password: password }
+    const validator = await this.validateUser(url, data)
+    console.log(validator)
+    if(typeof(validator) === 'object'){
+      this.props.loginUser(validator.email)
     }
-  };
+  }
 
-  handleSubmit = async e => {
-    e.preventDefault();
-    var url = "http://localhost:3000/api/users";
-    var data = {
-      
-      email: this.state.email,
-      password: this.state.password
-    };
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
+  validateUser = async (url, data) => {
+    try{
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      const success = await response.json()
+      return success.data
       }
-    })
-      .then(res => res.json())
-      .then(response => console.log("Success:", JSON.stringify(response)))
-      .catch(error => this.setState({ error: error.message }));
-  };
+      catch(error) {
+        return this.setState({ error: error.message})
+      }
+  }
 
-  
 
   render() {
     console.log(this.props, "login props")
@@ -76,12 +84,10 @@ export class Login extends Component {
   }
 }
 
-export const mapStateToProps = (state) => ({
-  users: state.users
+
+export const mapDispatchToProps = (dispatch) => ({
+  loginUser: (email) => dispatch(loginUser(email))
 })
 
-// export const mapDispatchToProps = (dispatch) => ({
-//   users: () => dispatch(addUser(users))
-// })
+export default connect(null, mapDispatchToProps)(Login)
 
-export default connect(mapStateToProps)(Login)
