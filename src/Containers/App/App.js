@@ -5,9 +5,10 @@ import Movies from '../Movies/Movies'
 import { APIkey } from '../../Utils/APIkey';
 import { addMovies } from '../../Actions/index'
 import { connect } from 'react-redux'
-import { NavLink, Route } from 'react-router-dom'
+import { NavLink, Route, Redirect } from 'react-router-dom'
 import Signup from '../Signup'
-import Login  from '../../Components/Login'
+import Login  from '../../Components/Login';
+
 
 export class App extends Component {
 
@@ -29,15 +30,22 @@ export class App extends Component {
           <NavLink to="/signup">Sign up </NavLink>
         </header>
         <Route exact path='/' component={Movies} />
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/signup' component={Signup}/>
+        <Route exact path='/login' component={Login}/>
+        <Route exact path='/signup' render={()=> (
+          this.props.user.length > 0 ? (
+            <Redirect to='/'/>
+          ):(<Signup/>)
+        )}/>
+        
       </div>
     );
   }
 }
-
+export const mapStateToProps = (state) => ({
+  user: state.user
+})
 export const mapDispatchToProps = (dispatch) => ({
   addMovies: (movies) => dispatch(addMovies(movies))
 })
 
-export default connect(null, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

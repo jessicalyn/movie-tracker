@@ -1,7 +1,9 @@
 import React from "react";
 import { Component } from "react"
 import { connect } from "react-redux"
-import { addUser } from "../Actions/index"
+import { addUser, loginUser } from "../Actions/index"
+import { Login } from "../Components/Login";
+
 
 export class Signup extends Component {
     constructor(){
@@ -10,7 +12,8 @@ export class Signup extends Component {
             name: "",
             email: "",
             password: "",
-            error: ""
+            error: "",
+            redirect: false
         }
     }
 
@@ -29,17 +32,32 @@ export class Signup extends Component {
         email: this.state.email,
         password: this.state.password
       }
-        fetch(url,{
-        method: "POST",
-        body: JSON.stringify(userInfo),
-        headers: {
-          "Content-Type": "application/json"
+      const validateEmail = await this.validateEmail(url, userInfo)
+      if(validateEmail.status === 'success'){
+        console.log(validateEmail, "validate")
+        console.log(userInfo.name, "name")
+         this.props.loginUser(validateEmail.id )
+         this.setState({
+            redirect: true
+        })
+     }
+    }
+
+    validateEmail= async (url,data) => {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers:{
+                  'Content-Type': 'application/json'
+                }
+              })
+              const success = await response.json()
+              console.log(success, "success data")
+              return success;
+        }catch(error){
+            return this.setState({ error: "Email already exists"})
         }
-      })
-        .then(response => response.json())
-        .then(response => JSON.stringify(response))
-        .catch(error => this.setState({error: error.message}))
-        this.props.addUser(userInfo)
     }
 
     render(){
@@ -69,13 +87,16 @@ export class Signup extends Component {
           />
           <button>Sign up</button>
         </form>
+        {this.state.redirect  && <Login/>}
       </section>
         )
     }
 }
 
+
 export const mapDispatchToProps = (dispatch) => ({
-    addUser: (user) => dispatch(addUser(user))
+    addUser: (user) => dispatch(addUser(user)),
+    loginUser: (user) => dispatch(loginUser(user))
   })
 
 export default connect(null, mapDispatchToProps)(Signup)
