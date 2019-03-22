@@ -48,6 +48,7 @@ export class Login extends Component {
   
 
   render() {
+    console.log(this.props, "login props")
     return (
       <section>
         <form onSubmit={this.handleSubmit}>
@@ -79,8 +80,8 @@ export const mapStateToProps = (state) => ({
   users: state.users
 })
 
-export const mapDispatchToProps = (dispatch) => ({
-  users: () => dispatch(addUser(users))
-})
+// export const mapDispatchToProps = (dispatch) => ({
+//   users: () => dispatch(addUser(users))
+// })
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login)
+export default connect(mapStateToProps)(Login)

@@ -7,7 +7,7 @@ import { addMovies } from '../../Actions/index'
 import { connect } from 'react-redux'
 import { NavLink, Route } from 'react-router-dom'
 import { Login } from '../../Components/Login'
-import { Signup } from '../../Components/Signup'
+import Signup from '../Signup'
 
 export class App extends Component {
 
@@ -21,6 +21,7 @@ export class App extends Component {
   }
 
   render() {
+    console.log(this.props, "app props")
     return (
       <div className="App">
         <header className="App-header">

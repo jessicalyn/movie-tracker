@@ -4,5 +4,5 @@ import { userReducer } from './userReducer'
 
 export const rootReducer = combineReducers({
     movies: moviesReducer,
-    users: userReducer
+    user: userReducer
 })

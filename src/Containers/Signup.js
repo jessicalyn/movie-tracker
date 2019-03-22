@@ -1,5 +1,7 @@
 import React from "react";
 import { Component } from "react"
+import { connect } from "react-redux"
+import { addUser } from "../Actions/index"
 
 export class Signup extends Component {
     constructor(){
@@ -20,13 +22,13 @@ export class Signup extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault()
-        const url = "http://localhost:3000/api/users/new"
+        const url = "http://localhost:3000/api/users/"
         const userInfo = {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password
         }
-        fetch(url,{
+            fetch(url,{
             method: "POST",
             body: JSON.stringify(userInfo),
             headers: {
@@ -34,12 +36,16 @@ export class Signup extends Component {
             }
           })
             .then(response => response.json())
-            .then(response => response.JSON.stringify(response))
-            .then(error => this.setState({error: error.message}))
-
+            .then(response => JSON.stringify(response))
+            .catch(error => this.setState({error: error.message}))
+            this.props.addUser(userInfo)
+         
     }
 
+   
+
     render(){
+        console.log(this.props, "heyy")
         return (
             <section>
         <form onSubmit={this.handleSubmit}>
@@ -80,3 +86,11 @@ export class Signup extends Component {
     }
 }
 
+
+export const mapDispatchToProps = (dispatch) => ({
+    addUser: (user) => dispatch(addUser(user))
+  })
+
+  
+export default connect(null, mapDispatchToProps)(Signup);
+  
