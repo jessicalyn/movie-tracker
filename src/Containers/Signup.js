@@ -13,41 +13,38 @@ export class Signup extends Component {
             error: ""
         }
     }
+
     handleChange = (event) => {
         const { name, value } = event.target
         this.setState({
-            [name]: value
+          [name]: value
         })
     }
 
     handleSubmit = async (event) => {
-        event.preventDefault()
-        const url = "http://localhost:3000/api/users/"
-        const userInfo = {
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password
+      event.preventDefault()
+      const url = "http://localhost:3000/api/users/new"
+      const userInfo = {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      }
+        fetch(url,{
+        method: "POST",
+        body: JSON.stringify(userInfo),
+        headers: {
+          "Content-Type": "application/json"
         }
-            fetch(url,{
-            method: "POST",
-            body: JSON.stringify(userInfo),
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
-            .then(response => response.json())
-            .then(response => JSON.stringify(response))
-            .catch(error => this.setState({error: error.message}))
-            this.props.addUser(userInfo)
-         
+      })
+        .then(response => response.json())
+        .then(response => JSON.stringify(response))
+        .catch(error => this.setState({error: error.message}))
+        this.props.addUser(userInfo)
     }
 
-   
-
     render(){
-        console.log(this.props, "heyy")
-        return (
-            <section>
+      return (
+        <section>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -55,8 +52,6 @@ export class Signup extends Component {
             placeholder="name"
             value= {this.state.name}
             onChange={this.handleChange}
-            
-            
           />
           <input
             type="text"
@@ -64,8 +59,6 @@ export class Signup extends Component {
             placeholder="email"
             value= {this.state.email}
             onChange={this.handleChange}
-            
-            
           />
           <input
             type="text"
@@ -73,24 +66,16 @@ export class Signup extends Component {
             placeholder="password"
             value={this.state.password}
             onChange={this.handleChange}
-            
-            
           />
-          
-
           <button>Sign up</button>
-          
         </form>
       </section>
         )
     }
 }
 
-
 export const mapDispatchToProps = (dispatch) => ({
     addUser: (user) => dispatch(addUser(user))
   })
 
-  
-export default connect(null, mapDispatchToProps)(Signup);
-  
+export default connect(null, mapDispatchToProps)(Signup)
