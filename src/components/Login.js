@@ -1,4 +1,4 @@
-
+import { Route, Redirect } from 'react-router'
 import React from "react";
 import { Component } from "react"
 import { loginUser } from '../Actions/index'
@@ -11,6 +11,7 @@ export class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      loginUser: false,
       error: ""
     };
   }
@@ -35,6 +36,7 @@ export class Login extends Component {
     const response = await checkUser.json()
     if(response.status === "success"){
       console.log("login response", response)
+      this.setState({ loginUser: true })
       return this.props.loginUser(response.data.id)
     } else {
       console.log("login response", response)
@@ -44,7 +46,7 @@ export class Login extends Component {
 
   render() {
     return (
-      <section>
+      <div className="login">
         <form onSubmit={this.validateUser}>
           <input
             type="text"
@@ -61,8 +63,11 @@ export class Login extends Component {
           <button>Submit</button>
           {this.state.error}
         </form>
-      </section>
-    );
+        <Route exact path='/login' render={() => (
+          this.state.loginUser && <Redirect to="/"/>
+        )} />
+      </div>
+    )
   }
 }
 
