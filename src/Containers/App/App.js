@@ -6,7 +6,9 @@ import { APIkey } from '../../Utils/APIkey';
 import { addMovies } from '../../Actions/index'
 import { connect } from 'react-redux'
 import { NavLink, Route } from 'react-router-dom'
+import Signup from '../Signup'
 import Login  from '../../Components/Login'
+
 
 export class App extends Component {
 
@@ -20,14 +22,17 @@ export class App extends Component {
   }
 
   render() {
+    console.log(this.props, "app props")
     return (
       <div className="App">
         <header className="App-header">
           <h1>Movie Tracker</h1>
           <NavLink to="/login" className="nav">Login</NavLink>
+          <NavLink to="/signup">Sign up </NavLink>
         </header>
         <Route exact path='/' component={Movies} />
         <Route exact path='/login' component={Login} />
+        <Route exact path='/signup' component={Signup}/>
       </div>
     );
   }

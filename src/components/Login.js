@@ -1,17 +1,24 @@
-import React from 'react'
-import { Component } from 'react'
+
+import React from "react";
+import { Component } from "react";
+import { fetchData } from "../Utils/fetchData";
+import { addUser } from "../Actions/index";
 import { loginUser } from '../Actions/index'
 import { connect } from 'react-redux'
 
+
 export class Login extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       email: "",
       password: "",
-      error: ""
-    }
+      error: "",
+      
+    };
   }
+
+
 
   handleChange = (e) => {
     const { name, value } = e.target
@@ -47,22 +54,40 @@ export class Login extends Component {
       }
   }
 
+
   render() {
-    return(
+    console.log(this.props, "login props")
+    return (
       <section>
-        <form onSubmit={ this.handleSubmit }>
-          <input type="text" name="email" value={ this.state.email } onChange={ this.handleChange }></input>
-          <input type="text" name="password" value={ this.state.password } onChange={ this.handleChange }></input>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            name="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          
+
           <button>Submit</button>
-          {this.state.error && <p>Error logging in, please try again! Or SignUp</p>}
+          {this.state.error && (
+            <p>Error logging in, please try again! Or SignUp</p>
+          )}
         </form>
       </section>
-    )
+    );
   }
 }
+
 
 export const mapDispatchToProps = (dispatch) => ({
   loginUser: (email) => dispatch(loginUser(email))
 })
 
 export default connect(null, mapDispatchToProps)(Login)
+
