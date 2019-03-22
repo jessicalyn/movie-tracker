@@ -11,7 +11,6 @@ export class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      loginUser: false,
       error: ""
     };
   }
@@ -35,11 +34,9 @@ export class Login extends Component {
     })
     const response = await checkUser.json()
     if(response.status === "success"){
-      console.log("login response", response)
       this.setState({ loginUser: true })
       return this.props.loginUser(response.data.id)
     } else {
-      console.log("login response", response)
       return this.setState({ error: "Email and Password do not match. Please try again or Signup."})
     }
   }
@@ -64,15 +61,19 @@ export class Login extends Component {
           {this.state.error}
         </form>
         <Route exact path='/login' render={() => (
-          this.state.loginUser && <Redirect to="/"/>
+          this.props.user.id && <Redirect to="/"/>
         )} />
       </div>
     )
   }
 }
 
+export const mapStateToProps = (state) => ({
+  user: state.user
+})
+
 export const mapDispatchToProps = (dispatch) => ({
   loginUser: (email) => dispatch(loginUser(email))
 })
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
