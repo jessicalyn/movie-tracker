@@ -38,7 +38,7 @@ export class Login extends Component {
       return this.props.loginUser(response.data.id)
     } else {
       console.log("login response", response)
-      return this.setState({ error: "Error logging in, please try again!"})
+      return this.setState({ error: "Email and Password do not match. Please try again or Signup."})
     }
   }
 
