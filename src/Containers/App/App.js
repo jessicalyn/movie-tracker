@@ -9,10 +9,9 @@ import { NavLink, Route } from 'react-router-dom'
 import Signup from '../Signup'
 import Login  from '../../Components/Login'
 
-
 export class App extends Component {
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     this.fetchMovies()
   }
 
@@ -22,7 +21,6 @@ export class App extends Component {
   }
 
   render() {
-    console.log(this.props, "app props")
     return (
       <div className="App">
         <header className="App-header">
@@ -42,6 +40,4 @@ export const mapDispatchToProps = (dispatch) => ({
   addMovies: (movies) => dispatch(addMovies(movies))
 })
 
-export default connect(null, mapDispatchToProps)(App);
-
-
+export default connect(null, mapDispatchToProps)(App)

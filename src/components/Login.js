@@ -13,12 +13,9 @@ export class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      error: "",
-      
+      error: ""
     };
   }
-
-
 
   handleChange = (e) => {
     const { name, value } = e.target
@@ -31,14 +28,14 @@ export class Login extends Component {
     const url = 'http://localhost:3000/api/users'
     const data = { email: email.toLowerCase(), password: password }
     const validator = await this.validateUser(url, data)
-    console.log(validator)
     if(typeof(validator) === 'object'){
       this.props.loginUser(validator.email)
     }
   }
 
   validateUser = async (url, data) => {
-    try{
+    console.log("validate")
+    try {
       const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -48,15 +45,12 @@ export class Login extends Component {
       })
       const success = await response.json()
       return success.data
-      }
-      catch(error) {
-        return this.setState({ error: error.message})
+      } catch(error) {
+        return this.setState({ error: "Error logging in, please try again!"})
       }
   }
 
-
   render() {
-    console.log(this.props, "login props")
     return (
       <section>
         <form onSubmit={this.handleSubmit}>
@@ -72,11 +66,9 @@ export class Login extends Component {
             value={this.state.password}
             onChange={this.handleChange}
           />
-          
-
           <button>Submit</button>
           {this.state.error && (
-            <p>Error logging in, please try again! Or SignUp</p>
+            <p></p>
           )}
         </form>
       </section>
@@ -84,10 +76,8 @@ export class Login extends Component {
   }
 }
 
-
 export const mapDispatchToProps = (dispatch) => ({
   loginUser: (email) => dispatch(loginUser(email))
 })
 
 export default connect(null, mapDispatchToProps)(Login)
-
