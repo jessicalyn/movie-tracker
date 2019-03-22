@@ -8,7 +8,7 @@ export const addUser = (user) => ({
   user
 })
 
-export const loginUser = (email) => ({
+export const loginUser = (id) => ({
   type: "LOGIN_USER",
-  email
+  id
 })

@@ -1,8 +1,6 @@
 
 import React from "react";
-import { Component } from "react";
-import { fetchData } from "../Utils/fetchData";
-import { addUser } from "../Actions/index";
+import { Component } from "react"
 import { loginUser } from '../Actions/index'
 import { connect } from 'react-redux'
 
@@ -22,38 +20,32 @@ export class Login extends Component {
     this.setState({ [name]: value })
   }
 
-  handleSubmit = async (e) => {
+  validateUser = async (e) => {
     e.preventDefault()
     const { email, password} = this.state
     const url = 'http://localhost:3000/api/users'
     const data = { email: email.toLowerCase(), password: password }
-    const validator = await this.validateUser(url, data)
-    if(typeof(validator) === 'object'){
-      this.props.loginUser(validator.email)
-    }
-  }
-
-  validateUser = async (url, data) => {
-    console.log("validate")
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers:{
-          'Content-Type': 'application/json'
-        }
-      })
-      const success = await response.json()
-      return success.data
-      } catch(error) {
-        return this.setState({ error: "Error logging in, please try again!"})
+    const checkUser = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type': 'application/json'
       }
+    })
+    const response = await checkUser.json()
+    if(response.status === "success"){
+      console.log("login response", response)
+      return this.props.loginUser(response.data.id)
+    } else {
+      console.log("login response", response)
+      return this.setState({ error: "Error logging in, please try again!"})
+    }
   }
 
   render() {
     return (
       <section>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.validateUser}>
           <input
             type="text"
             name="email"
@@ -67,9 +59,7 @@ export class Login extends Component {
             onChange={this.handleChange}
           />
           <button>Submit</button>
-          {this.state.error && (
-            <p></p>
-          )}
+          {this.state.error}
         </form>
       </section>
     );
