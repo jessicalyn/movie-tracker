@@ -7,7 +7,8 @@ export class Signup extends Component {
         this.state={
             name: "",
             email: "",
-            password: ""
+            password: "",
+            error: ""
         }
     }
     handleChange = (event) => {
@@ -17,15 +18,25 @@ export class Signup extends Component {
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault()
         const url = "http://localhost:3000/api/users/new"
-        const data = {
+        const userInfo = {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password
         }
-        fetch(url)
+        fetch(url,{
+            method: "POST",
+            body: JSON.stringify(userInfo),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+            .then(response => response.json())
+            .then(response => response.JSON.stringify(response))
+            .then(error => this.setState({error: error.message}))
+
     }
 
     render(){
