@@ -1,7 +1,7 @@
 import React from "react";
 import { Component } from "react"
 import { connect } from "react-redux"
-import { addUser, loginUser } from "../Actions/index"
+import { loginUser } from "../Actions/index"
 import { Route, Redirect } from 'react-router'
 
 export class Signup extends Component {
@@ -17,9 +17,7 @@ export class Signup extends Component {
 
     handleChange = (event) => {
         const { name, value } = event.target
-        this.setState({
-          [name]: value
-        })
+        this.setState({ [name]: value })
     }
 
     handleSubmit = async (event) => {
@@ -43,7 +41,7 @@ export class Signup extends Component {
          return this.props.loginUser(result.id)
         }else {
           this.setState({
-            error: "Email has already been used"
+            error: "Email has already been used, please Login."
           })
         }
     }
@@ -74,13 +72,11 @@ export class Signup extends Component {
             onChange={this.handleChange}
           />
           <button>Sign up</button>
-          
         </form>
         {this.state.error && this.state.error}
         <Route exact path ='/Signup' render={()=> (
           this.props.user.id && <Redirect to="/"/>
         )}/>
-
       </section>
         )
     }
@@ -90,7 +86,6 @@ export const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-    addUser: (user) => dispatch(addUser(user)),
     loginUser: (user) => dispatch(loginUser(user))
   })
 
