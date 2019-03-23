@@ -25,18 +25,19 @@ export class Login extends Component {
     const { email, password} = this.state
     const url = 'http://localhost:3000/api/users'
     const data = { email: email.toLowerCase(), password: password }
-    const checkUser = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers:{
-        'Content-Type': 'application/json'
+    try {
+      const checkUser = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      })
+      const response = await checkUser.json()
+      if(response.status === "success"){
+        return this.props.loginUser(response.data.id)
       }
-    })
-    const response = await checkUser.json()
-    if(response.status === "success"){
-      this.setState({ loginUser: true })
-      return this.props.loginUser(response.data.id)
-    } else {
+    } catch(error) {
       return this.setState({ error: "Email and Password do not match. Please try again or Signup."})
     }
   }

@@ -27,7 +27,7 @@ export class App extends Component {
           <h1>Movie Tracker</h1>
           <NavLink to="/login" className="nav">Login</NavLink>
           <NavLink to="/signup">Sign up </NavLink>
-          {this.props.user.id} 
+          {this.props.user.id && <h4>Welcome {this.props.user.name}!</h4>}
         </header>
         <Route exact path='/' component={Movies} />
         <Route exact path='/login' component={Login} />
@@ -44,4 +44,4 @@ export const mapDispatchToProps = (dispatch) => ({
   addMovies: (movies) => dispatch(addMovies(movies))
 })
 
-export default connect(null, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
