@@ -11,7 +11,8 @@ export class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      error: ""
+      error: "",
+      welcomeMessage: ""
     };
   }
 
@@ -44,9 +45,14 @@ export class Login extends Component {
       });
       const success = await response.json();
       console.log(success.data, "success data login");
+      this.setState({
+        welcomeMessage: `Welcome ${success.data.name}`
+      })
       return success.data;
     } catch (error) {
-      return this.setState({ error: "Error logging in, please try again!" });
+      return this.setState({ error: "Please sign up or try again"
+                              
+     });
     }
   };
 
@@ -67,7 +73,8 @@ export class Login extends Component {
             onChange={this.handleChange}
           />
           <button>Submit</button>
-          {this.state.error && <p />}
+          {this.state.error && <p>{this.state.error}</p>}
+          {this.state.welcomeMessage && <p>{this.state.welcomeMessage}</p>}
         </form>
       </section>
     );

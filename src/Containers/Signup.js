@@ -3,6 +3,7 @@ import { Component } from "react"
 import { connect } from "react-redux"
 import { addUser, loginUser } from "../Actions/index"
 import { Login } from "../Components/Login";
+// import { mapStateToProps } from "./App/App";
 
 
 export class Signup extends Component {
@@ -13,7 +14,8 @@ export class Signup extends Component {
             email: "",
             password: "",
             error: "",
-            redirect: false
+            redirect: false,
+            message: ""
         }
     }
 
@@ -36,7 +38,7 @@ export class Signup extends Component {
       if(validateEmail.status === 'success'){
         console.log(validateEmail, "validate")
         console.log(userInfo.name, "name")
-         this.props.loginUser(validateEmail.id )
+         this.props.addUser(validateEmail.id )
          this.setState({
             redirect: true
         })
@@ -61,6 +63,7 @@ export class Signup extends Component {
     }
 
     render(){
+      console.log(this.props, "signup comp")
       return (
         <section>
         <form onSubmit={this.handleSubmit}>
@@ -87,16 +90,18 @@ export class Signup extends Component {
           />
           <button>Sign up</button>
         </form>
-        {this.state.redirect  && <Login/>}
+        
       </section>
         )
     }
 }
 
-
+export const mapStateToProps = (state) => ({
+    message: state.message
+})
 export const mapDispatchToProps = (dispatch) => ({
     addUser: (user) => dispatch(addUser(user)),
     loginUser: (user) => dispatch(loginUser(user))
   })
 
-export default connect(null, mapDispatchToProps)(Signup)
+export default connect(mapStateToProps, mapDispatchToProps)(Signup)

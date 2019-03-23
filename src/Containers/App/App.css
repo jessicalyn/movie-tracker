@@ -6,3 +6,7 @@ h1 {
   font-family: 'Limelight', cursive;
   font-size: 3rem
 }
+
+.App-header{
+  display: flex;
+}

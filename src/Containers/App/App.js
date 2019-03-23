@@ -10,6 +10,7 @@ import Signup from '../Signup'
 import Login  from '../../Components/Login';
 
 
+
 export class App extends Component {
 
   componentDidMount = () => {
@@ -22,6 +23,7 @@ export class App extends Component {
   }
 
   render() {
+    console.log(this.props, "app props")
     return (
       <div className="App">
         <header className="App-header">
@@ -32,7 +34,7 @@ export class App extends Component {
         <Route exact path='/' component={Movies} />
         <Route exact path='/login' component={Login}/>
         <Route exact path='/signup' render={()=> (
-          this.props.user.length > 0 ? (
+          this.props.user > 0 ? (
             <Redirect to='/'/>
           ):(<Signup/>)
         )}/>

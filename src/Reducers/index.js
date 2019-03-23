@@ -5,4 +5,5 @@ import { userReducer } from "./userReducer";
 export const rootReducer = combineReducers({
   movies: moviesReducer,
   user: userReducer
+  
 });
