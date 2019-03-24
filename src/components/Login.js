@@ -50,11 +50,13 @@ export class Login extends Component {
             type="text"
             name="email"
             value={this.state.email}
+            id="email-input"
             onChange={this.handleChange}
           />
           <input
             type="text"
             name="password"
+            id="password-input"
             value={this.state.password}
             onChange={this.handleChange}
           />
