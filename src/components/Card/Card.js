@@ -7,20 +7,19 @@ export class Card extends Component {
     super(props);
     this.state = {
       message: ""
-    };
+    }
   }
 
   addFavorites = async () => {
     if (typeof this.props.user.id === "number") {
-      const response = await this.fetchFavorites();
-      console.log(response);
+      return await this.fetchFavorites();
     } else {
       this.setState({
         message: "Please login or sign up"
-      });
+      })
     }
-  };
-
+  }
+  
   fetchFavorites = async () => {
     const { movie, user } = this.props;
     let data = {
@@ -31,28 +30,37 @@ export class Card extends Component {
       release_date: movie.release_date,
       vote_average: movie.vote_average,
       overview: movie.overview,
-      isFavorite: true
-    };
+    }
     
-    const url = "http://localhost:3000/api/users/favorites/new";
+    const url = "http://localhost:3000/api/users/favorites/new"
+    try{
     const addFav = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json"
       }
-    });
+    })
     
     const response = await addFav.json();
-    return response;
-  };
+    this.setState({
+      message: response.message
+    })
+  }  catch(error){
+      this.setState({
+        message: "Sorry something went wrong"
+      })
+    }
+  }
+    
+    
     
    
 
   render() {
-    const { movie } = this.props;
-    const poster = movie.poster_path;
-    const path = `https://image.tmdb.org/t/p/w185/${poster}`;
+    const { movie } = this.props
+    const poster = movie.poster_path
+    const path = `https://image.tmdb.org/t/p/w185/${poster}`
     return (
       <section className="card">
         <h3>{movie.title}</h3>
@@ -60,12 +68,12 @@ export class Card extends Component {
         <button onClick={this.addFavorites}>Favorite</button>
         {this.state.message && this.state.message}
       </section>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
     user: state.user
-});
+})
 
-export default connect(mapStateToProps)(Card);
+export default connect(mapStateToProps)(Card)
