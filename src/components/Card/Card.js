@@ -11,11 +11,11 @@ export class Card extends Component {
   }
 
   addFavorites = async () => {
-    if (typeof this.props.user.id === "number") {
+    if (this.props.user.id) {
       return await this.fetchFavorites();
     } else {
       this.setState({
-        message: "Please login or sign up"
+        message: "Please login or sign up to favorite movies."
       })
     }
   }
@@ -48,14 +48,10 @@ export class Card extends Component {
     })
   }  catch(error){
       this.setState({
-        message: "Sorry something went wrong"
+        message: "Sorry something went wrong, please try again."
       })
     }
   }
-    
-    
-    
-   
 
   render() {
     const { movie } = this.props
