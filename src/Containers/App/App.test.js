@@ -26,7 +26,7 @@ describe('App', () => {
       expect(appInstance.fetchMovies).toBeCalled()
     })
 
-    it.only('should fetch the movies data and call addMovies', async () => {
+    it.skip('should fetch the movies data and call addMovies', async () => {
       const mockMovies = [
         {title: "Cars", poster_path: "car.jpg"},
         {title: "How To Train Your Dragon", poster_path: "dragon.jpg"}
