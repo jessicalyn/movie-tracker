@@ -27,7 +27,10 @@ describe('Movies', () => {
           {title: "Cars", poster_path: "car.jpg"},
           {title: "How To Train Your Dragon", poster_path: "dragon.jpg"}
         ],
-        filter: 'SHOW_FAVORITES'
+        user: {
+          id: 1,
+          name: "Taylor"
+        }
       }
       const expected = {
         movies: [

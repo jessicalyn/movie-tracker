@@ -1,13 +1,13 @@
 import React from "react";
 import { Component } from "react"
 import { connect } from "react-redux"
-import { loginUser } from "../Actions/index"
+import { loginUser } from "../../Actions/index"
 import { Route, Redirect } from 'react-router'
 
 export class Signup extends Component {
     constructor(){
         super();
-        this.state={
+        this.state = {
             name: "",
             email: "",
             password: "",
@@ -36,7 +36,6 @@ export class Signup extends Component {
           }
         })
         const result = await response.json()
-        console.log(result, "response")
         if(result.status === "success"){
          return this.props.loginUser(result.id)
         }else {
@@ -86,7 +85,7 @@ export const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-    loginUser: (user) => dispatch(loginUser(user))
+    loginUser: (userId) => dispatch(loginUser(userId))
   })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup)
