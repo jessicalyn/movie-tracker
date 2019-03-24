@@ -11,48 +11,42 @@ export class Card extends Component {
   }
 
   addFavorites = async () => {
-    if (typeof this.props.user.id === "number") {
+    if (this.props.user.id) {
       const response = await this.fetchFavorites();
-      console.log(response);
     } else {
       this.setState({
-        message: "Please login or sign up"
+        message: "Please Login or Signup for an account to favorite movies."
       });
     }
   };
 
   fetchFavorites = async () => {
-    const { movie, user } = this.props;
-    let data = {
+    const { movie, user } = this.props
+    const data = {
       movie_id: movie.id,
       user_id: user.id,
       title: movie.title,
       poster_path: movie.poster_path,
       release_date: movie.release_date,
       vote_average: movie.vote_average,
-      overview: movie.overview,
-      isFavorite: true
-    };
-    
-    const url = "http://localhost:3000/api/users/favorites/new";
-    const addFav = await fetch(url, {
+      overview: movie.overview
+    }
+    const url = "http://localhost:3000/api/users/favorites/new"
+    const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json"
       }
     });
-    
-    const response = await addFav.json();
-    return response;
-  };
-    
-   
+    const result = await response.json()
+    return result
+  }
 
   render() {
-    const { movie } = this.props;
-    const poster = movie.poster_path;
-    const path = `https://image.tmdb.org/t/p/w185/${poster}`;
+    const { movie } = this.props
+    const poster = movie.poster_path
+    const path = `https://image.tmdb.org/t/p/w185/${poster}`
     return (
       <section className="card">
         <h3>{movie.title}</h3>
