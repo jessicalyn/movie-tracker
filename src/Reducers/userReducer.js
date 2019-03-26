@@ -1,12 +1,10 @@
 export const userReducer = (state=[], action) => {
   switch (action.type){
     case 'LOGIN_USER':
-    console.log("check")
         return {
-          
           id: action.id,
-          name: "", 
-          favorites: []
+          name: action.name, 
+          favorites: action.favorites
         }
     
     case 'LOGOUT_USER':

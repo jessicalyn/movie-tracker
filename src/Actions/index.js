@@ -3,11 +3,18 @@ export const addMovies = (movies) => ({
   movies
 })
 
-export const loginUser = (id) => ({
+export const loginUser = ({id, name, favorites}) => ({
   type: "LOGIN_USER",
-  id
+  id,
+  name,
+  favorites
 })
 
 export const logOutUser = () => ({
   type: "LOGOUT_USER"
+})
+
+export const userFavorites = (id) => ({
+  type: "USER_FAVORITES",
+  id
 })

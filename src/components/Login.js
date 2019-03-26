@@ -33,10 +33,25 @@ export class Login extends Component {
       const options = await fetchOptionsCreator('POST', body)
       const result = await fetchData(url, options)
       if(result.status === "success"){
-        return this.props.loginUser(result.data.id)
+        return this.fetchUserFavorites(result.data.id, result.data.name)
       }
     } catch(error) {
       return this.setState({ error: "Email and Password do not match. Please try again or Signup."})
+    }
+  }
+
+  fetchUserFavorites = async (id, name) => {
+    const url = `http://localhost:3000/api/users/${id}/favorites`
+    try {
+      const options = await fetchOptionsCreator('GET')
+      const result = await fetchData(url, options)
+      if(result.status === "success"){
+        console.log("favs result", result.data)
+        const favorites = result.data
+        return this.props.loginUser({id, name, favorites})
+      }
+    } catch(error) {
+      return this.setState({ error: "Error finding favorite movies, please refresh page and try again."})
     }
   }
 
