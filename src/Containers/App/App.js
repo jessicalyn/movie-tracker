@@ -6,18 +6,30 @@ import { APIkey } from '../../Utils/APIkey';
 import { addMovies, logOutUser } from '../../Actions/index'
 import { connect } from 'react-redux'
 import { NavLink, Route } from 'react-router-dom'
-import Signup from '../Signup'
+import Signup from '../Signup/Signup'
 import Login  from '../../Components/Login'
+import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator';
 
 export class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      error: ""
+    }
+  }
 
   componentDidMount = () => {
     this.fetchMovies()
   }
 
   fetchMovies = async () => {
-    const movies = await fetchData(APIkey)
-    this.props.addMovies(movies.results)
+    try {
+      const options = await fetchOptionsCreator('GET')
+      const movies = await fetchData(APIkey, options)
+      this.props.addMovies(movies.results)
+    } catch(error) {
+      this.setState({error: error.message})
+    }
   }
 
   logOutUser = (e) => {
