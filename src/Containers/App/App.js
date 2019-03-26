@@ -10,14 +10,24 @@ import Signup from '../Signup/Signup'
 import Login  from '../../Components/Login'
 
 export class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      error: ""
+    }
+  }
 
   componentDidMount = () => {
     this.fetchMovies()
   }
 
   fetchMovies = async () => {
-    const movies = await fetchData(APIkey)
-    this.props.addMovies(movies.results)
+    try {
+      const movies = await fetchData(APIkey)
+      this.props.addMovies(movies.results)
+    } catch(error) {
+      this.setState({error: error.message})
+    }
   }
 
   logOutUser = (e) => {

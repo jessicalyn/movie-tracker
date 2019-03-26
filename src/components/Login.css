@@ -1,0 +1,92 @@
+.error-message{
+    color:white;
+}
+
+form input{
+    height: 40px;
+    font-size: 20px;
+    width: 100%;
+    color: black;
+    font-weight: bold;
+}
+
+form button{
+    height: 45px;
+    margin-bottom: 20px;
+    font-size: 30px; 
+    text-transform: uppercase;
+    border: 3px solid #00d7c3;
+    border-radius: 50px;
+    background-color: white;
+    
+}
+
+form button:hover{
+    background-color: #FFCC33;
+}
+
+form button:focus {
+    outline:0;
+}
+
+.input-box{
+    display: flex;
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 22px;
+    justify-content: space-between;
+}
+
+.input-box input:focus {
+    outline: 0;
+}
+
+.input-box img {
+    width: 45px;
+    height: 48px;
+}
+
+.login {
+    display: flex;
+    background-color: #333;
+    background: url("../images/login-background.jpeg");
+    background-size: cover;
+    height: 700px;
+    width: 100%;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+.login h3{
+    color: white;
+    border-bottom:6ps solid white;
+}
+
+.login-box {
+    width: 30%;
+    background-color: black;
+    opacity:0.5;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    left: 18%;
+    height: 500px;
+    padding: 20px;
+    transform: translate(-50%,-50%);
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-header h3 {
+    font-size: 23px;
+}
+
+.password-link{
+    color:white;
+    text-decoration: underline;    
+}
+

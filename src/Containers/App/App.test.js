@@ -1,18 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App, mapDispatchToProps } from './App'
+import { App, mappStateToProps, mapDispatchToProps } from './App'
 import { addMovies } from '../../Actions'
 import { shallow } from 'enzyme'
-import { fetchData } from '../../Utils/fetchData'
+import * as API from '../../Utils/fetchData'
 
-jest.mock('../../Utils/fetchData')
+// jest.mock('../../Utils/fetchData')
 
 describe('App', () => {
   describe('App', () => {
     let wrapper;
+    const mockMovies = [
+      {title: "Cars", poster_path: "car.jpg"},
+      {title: "How To Train Your Dragon", poster_path: "dragon.jpg"}
+    ]
+    const mockUser = { id: 1, name: "Taylor" }
+    const mockAddMovies = jest.fn()
 
     beforeEach(() => {
-      wrapper = shallow(<App addMovies={jest.fn()}/>)
+      wrapper = shallow(<App addMovies={mockAddMovies} user={mockUser}/>)
+      API.fetchData = jest.fn().mockImplementation(() => Promise.resolve({results: mockMovies}))
     })
 
     it('should match the snapshot with all data passed in', () => {
@@ -26,15 +33,16 @@ describe('App', () => {
       expect(appInstance.fetchMovies).toBeCalled()
     })
 
-    it.skip('should fetch the movies data and call addMovies', async () => {
-      const mockMovies = [
-        {title: "Cars", poster_path: "car.jpg"},
-        {title: "How To Train Your Dragon", poster_path: "dragon.jpg"}
-      ]
-      fetchData.mockImplementation(() => Promise.resolve(mockMovies))
+    it('should fetch the movies data and call addMovies', async () => {
       await wrapper.instance().fetchMovies()
-      expect(wrapper.instance().props.addMovies).toHaveBeenCalledWith(mockMovies)
+      expect(mockAddMovies).toHaveBeenCalledWith(mockMovies)
+    })
 
+    it('should show an error when everything is not okay with fetchData', async () => {
+      const mockError = "This didn't work"
+      API.fetchData = jest.fn().mockImplementation(() => {throw new Error(mockError)})
+      await wrapper.instance().fetchMovies()
+      expect(wrapper.state("error")).toEqual(mockError)
     })
   });
 

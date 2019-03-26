@@ -44,6 +44,15 @@ describe('Signup', () => {
       expect(wrapper.state('email')).toEqual("archie@gmail.com")
     })
 
+    it('should invoke handleSubmit when form button is clicked', () => {
+      const mockHandleSubmit = jest.fn()
+      wrapper.find('.signup-button').simulate('click')
+      expect(wrapper.instance().handleSubmit()).toBeCalled()
+    })
+
+    fetchPost
+  })
+
     describe('mapStateToProps', () => {
       it('should return an object with the current user', () => {
         const mockState = {
@@ -75,5 +84,4 @@ describe('Signup', () => {
         expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch)
       })
     })
-  })
 })
