@@ -31,12 +31,14 @@ export class Signup extends Component {
         email: this.state.email,
         password: this.state.password
       }
+      try {
       const options = await fetchOptionsCreator('POST', body)
       const result = await fetchData(url, options)
         if(result.status === "success"){
          return this.props.loginUser(result.id)
-        } else {
-          this.setState({
+        }
+       } catch(error) {
+          return this.setState({
             error: "Email has already been used, please Login."
           })
         }
