@@ -1,0 +1,49 @@
+.signup{
+    background: url("../../images/popcorn.jpg") no-repeat;
+    background-size:cover;
+    height:700px;
+     display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.signup-box{
+    background-color:white;
+    width:30%;
+    height: 500px;
+    padding: 20px; 
+    border: 10px solid black;
+}
+
+.user-name img {
+    width: 45px;
+    height: 48px;
+}
+
+.user-name{
+    background-color: #cccc;
+    display: flex;
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 22px;
+    justify-content: space-between;
+}
+
+.input-box{
+    display: flex;
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 22px;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+form button {
+    background-color: #e50914;
+}
+
+.signup-btn{
+    background-color: #e50914;
+    color:white;
+    border:1px solid white;
+    width:100%;
+}
