@@ -8,9 +8,6 @@ export const userReducer = (state=[], action) => {
           name: "", 
           favorites: []
         }
-
-    case 'ADD_USER':
-      return action.user
     
     case 'LOGOUT_USER':
       return {

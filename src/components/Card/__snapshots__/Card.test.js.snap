@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card Login should match the snapshot with all data passed in 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Card
+    movie={
+      Object {
+        "movie_id": 1,
+        "overview": "movie.overview",
+        "poster_path": "movie.poster_path",
+        "release_date": 0.00033085194375516956,
+        "title": "movie.title",
+        "vote_average": "movie.vote_average",
+      }
+    }
+    user={
+      Object {
+        "id": 1,
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <h3>
+          movie.title
+        </h3>,
+        <img
+          alt="movie.title"
+          src="https://image.tmdb.org/t/p/w185/movie.poster_path"
+        />,
+        <button
+          onClick={[Function]}
+        >
+          Favorite
+        </button>,
+        "",
+      ],
+      "className": "card",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "movie.title",
+        },
+        "ref": null,
+        "rendered": "movie.title",
+        "type": "h3",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "alt": "movie.title",
+          "src": "https://image.tmdb.org/t/p/w185/movie.poster_path",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "img",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Favorite",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": "Favorite",
+        "type": "button",
+      },
+      "",
+    ],
+    "type": "section",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h3>
+            movie.title
+          </h3>,
+          <img
+            alt="movie.title"
+            src="https://image.tmdb.org/t/p/w185/movie.poster_path"
+          />,
+          <button
+            onClick={[Function]}
+          >
+            Favorite
+          </button>,
+          "",
+        ],
+        "className": "card",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "movie.title",
+          },
+          "ref": null,
+          "rendered": "movie.title",
+          "type": "h3",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "alt": "movie.title",
+            "src": "https://image.tmdb.org/t/p/w185/movie.poster_path",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "img",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Favorite",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": "Favorite",
+          "type": "button",
+        },
+        "",
+      ],
+      "type": "section",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+  Symbol(enzyme.__childContext__): null,
+}
+`;
