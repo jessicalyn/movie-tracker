@@ -5,6 +5,7 @@ import { loginUser } from "../../Actions/index"
 import { Route, Redirect } from 'react-router'
 import { fetchData } from '../../Utils/fetchData'
 import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator'
+import './Signup.css'
 
 export class Signup extends Component {
     constructor(){
