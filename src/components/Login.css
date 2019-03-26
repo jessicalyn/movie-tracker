@@ -1,5 +1,5 @@
 .error-message{
-    color:white;
+    color:black;
 }
 
 form input{
@@ -15,9 +15,13 @@ form button{
     margin-bottom: 20px;
     font-size: 30px; 
     text-transform: uppercase;
-    border: 3px solid #00d7c3;
+    /* border: 3px solid #00d7c3; */
     border-radius: 50px;
-    background-color: white;
+    /* background-color: white; */
+    background-color: #e50914;
+    color: white;
+    border: 1px solid white;
+    width: 100%;
     
 }
 
@@ -49,7 +53,7 @@ form button:focus {
 .login {
     display: flex;
     background-color: #333;
-    background: url("../images/login-background.jpeg");
+    background: url("../images/popcorn.jpg");
     background-size: cover;
     height: 700px;
     width: 100%;
@@ -59,14 +63,14 @@ form button:focus {
 }
 
 .login h3{
-    color: white;
+    
     border-bottom:6ps solid white;
 }
 
 .login-box {
     width: 30%;
     background-color: black;
-    opacity:0.5;
+    /* opacity:0.5; */
     margin: 0 auto;
     position: relative;
     top: 50%;
@@ -74,6 +78,12 @@ form button:focus {
     height: 500px;
     padding: 20px;
     transform: translate(-50%,-50%);
+
+    background-color: white;
+    width: 30%;
+    height: 500px;
+    padding: 20px;
+    border: 10px solid black
 }
 
 .login-box form {
