@@ -6,6 +6,12 @@ export const userReducer = (state={}, action) => {
           name: action.name, 
           favorites: action.favorites
         }
+
+    case 'UPDATE_FAVS':
+        return {
+          id: state.id,
+          name: state.name
+        }
     
     case 'LOGOUT_USER':
       return {
