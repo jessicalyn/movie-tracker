@@ -18,3 +18,8 @@ export const userFavorites = (id) => ({
   type: "USER_FAVORITES",
   id
 })
+
+export const hasError = (message) => ({
+  type: "HAS_ERROR",
+  message
+})

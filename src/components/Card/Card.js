@@ -3,22 +3,16 @@ import { Component } from "react"
 import { connect } from "react-redux"
 import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator'
 import { fetchData } from '../../Utils/fetchData'
+import { hasError } from '../../Actions'
 
 export class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      message: ""
-    }
-  }
 
   addFavorites = async () => {
     if (this.props.user.id) {
       return await this.fetchFavorites()
     } else {
-      this.setState({
-        message: "Please login or sign up to favorite movies."
-      })
+      const message = "Please login or sign up to favorite movies."
+      return this.props.hasError(message)
     }
   }
 
@@ -39,15 +33,15 @@ export class Card extends Component {
       const result = await fetchData(url, options)
       if(result.status === "success"){
         console.log("favs adding", result)
-        return this.setState({ message: result.message })
+        const message = result.message
+        return this.props.hasError(message)
       }
     } catch(error){
-      return this.setState({
-        message: "Sorry something went wrong, please refresh and try again."
-      })
+      const message = "Sorry something went wrong, please refresh and try again."
+      return this.props.hasError(message)
     }
   }
-        
+
   render() {
     const { movie } = this.props
     const poster = movie.poster_path
@@ -57,14 +51,18 @@ export class Card extends Component {
         <h3>{movie.title}</h3>
         <img src={path} alt={movie.title} />
         <button onClick={this.addFavorites}>Favorite</button>
-        {this.state.message && this.state.message}
       </section>
     )
   }
 }
 
-const mapStateToProps = state => ({
-    user: state.user
+export const mapStateToProps = (state) => ({
+    user: state.user,
+    error: state.error
 })
 
-export default connect(mapStateToProps)(Card)
+export const mapDispatchToProps = (dispatch) => ({
+  hasError: (message) => dispatch(hasError(message))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card)

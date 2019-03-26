@@ -3,20 +3,14 @@ import './App.css';
 import { fetchData } from '../../Utils/fetchData'
 import Movies from '../Movies/Movies'
 import { APIkey } from '../../Utils/APIkey';
-import { addMovies, logOutUser } from '../../Actions/index'
+import { addMovies, logOutUser, hasError } from '../../Actions/index'
 import { connect } from 'react-redux'
 import { NavLink, Route } from 'react-router-dom'
 import Signup from '../Signup/Signup'
 import Login  from '../../Components/Login'
-import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator';
+import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator'
 
 export class App extends Component {
-  constructor(){
-    super()
-    this.state = {
-      error: ""
-    }
-  }
 
   componentDidMount = () => {
     this.fetchMovies()
@@ -26,11 +20,14 @@ export class App extends Component {
     try {
       const options = await fetchOptionsCreator('GET')
       const movies = await fetchData(APIkey, options)
-      this.props.addMovies(movies.results)
+      return this.props.addMovies(movies.results)
     } catch(error) {
-      this.setState({error: error.message})
+      this.props.hasError(error.message)
+        setTimeout(() => {
+          this.props.hasError("")
+        }, 3000)
+      }
     }
-  }
 
   logOutUser = (e) => {
     e.preventDefault()
@@ -43,24 +40,28 @@ export class App extends Component {
         <header className="App-header">
           <h1>Movie Tracker</h1>
           <NavLink to="/login" className="nav">Login</NavLink>
-          <NavLink to="/signup">Sign up </NavLink>
+          <NavLink to="/signup">Sign up</NavLink>
           <button onClick={this.logOutUser}>Log Out</button>
           {this.props.user.id && <h4>Welcome {this.props.user.name}!</h4>}
-        </header>
-        <Route exact path='/' component={Movies} />
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/signup' component={Signup}/>
+          </header>
+          <Route exact path='/' component={Movies} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/signup' component={Signup}/>
+          { this.props.error && <p>{ this.props.error }</p>}
       </div>
     );
   }
 }
+
 export const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
+  error: state.error
 })
 
 export const mapDispatchToProps = (dispatch) => ({
   addMovies: (movies) => dispatch(addMovies(movies)),
-  logOutUser: () => dispatch(logOutUser())
+  logOutUser: () => dispatch(logOutUser()),
+  hasError: (message) => dispatch(hasError(message))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

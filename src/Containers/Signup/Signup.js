@@ -1,7 +1,7 @@
 import React from "react";
 import { Component } from "react"
 import { connect } from "react-redux"
-import { loginUser } from "../../Actions/index"
+import { loginUser, hasError } from "../../Actions/index"
 import { Route, Redirect } from 'react-router'
 import { fetchData } from '../../Utils/fetchData'
 import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator'
@@ -13,8 +13,7 @@ export class Signup extends Component {
         this.state = {
             name: "",
             email: "",
-            password: "",
-            error: ""
+            password: ""
         }
     }
 
@@ -38,9 +37,8 @@ export class Signup extends Component {
          return this.props.loginUser(result.id)
         }
        } catch(error) {
-          return this.setState({
-            error: "Email has already been used, please Login."
-          })
+        const message = "Email has already been used, please Login."
+        return this.props.hasError(message)
         }
     }
 
@@ -71,20 +69,22 @@ export class Signup extends Component {
           />
           <button className="signup-button">Sign up</button>
         </form>
-        {this.state.error && this.state.error}
+        {this.props.error && this.props.error}
         <Route exact path ='/Signup' render={()=> (
           this.props.user.id && <Redirect to="/"/>
         )}/>
-      </section>
-        )
+        </section>
+      )
     }
 }
 export const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
+  error: state.error
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-    loginUser: (userId) => dispatch(loginUser(userId))
+    loginUser: (userId) => dispatch(loginUser(userId)),
+    hasError: (message) => dispatch(hasError(message))
   })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup)

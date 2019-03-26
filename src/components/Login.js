@@ -1,7 +1,7 @@
 import { Route, Redirect } from 'react-router'
 import React from "react";
 import { Component } from "react"
-import { loginUser } from '../Actions/index'
+import { loginUser, hasError } from '../Actions/index'
 import { connect } from 'react-redux'
 import  user  from '../images/user.png'
 import password from '../images/password-icon.png'
@@ -14,8 +14,7 @@ export class Login extends Component {
     super();
     this.state = {
       email: "",
-      password: "",
-      error: ""
+      password: ""
     };
   }
 
@@ -36,7 +35,11 @@ export class Login extends Component {
         return this.fetchUserFavorites(result.data.id, result.data.name)
       }
     } catch(error) {
-      return this.setState({ error: "Email and Password do not match. Please try again or Signup."})
+      const message = "Email and Password do not match. Please try again or Signup."
+      this.props.hasError(message)
+        setTimeout(() => {
+          this.props.hasError("")
+        }, 3000)
     }
   }
 
@@ -46,13 +49,16 @@ export class Login extends Component {
       const options = await fetchOptionsCreator('GET')
       const result = await fetchData(url, options)
       if(result.status === "success"){
-        console.log("favs result", result.data)
         const favorites = result.data
         return this.props.loginUser({id, name, favorites})
       }
     } catch(error) {
-      return this.setState({ error: "Error finding favorite movies, please refresh page and try again."})
-    }
+      const message = "Error finding favorite movies, please refresh page and try again."
+      this.props.hasError(message)
+        setTimeout(() => {
+          this.props.hasError("")
+        }, 3000)
+      }
   }
 
   render() {
@@ -84,8 +90,7 @@ export class Login extends Component {
                 />
               </div>
           <button>Submit</button>
-          <p className="password-link">Forgot your password?</p>
-          <p className="error-message">{this.state.error}</p>
+          <p className="error-message">{this.props.error}</p>
         </form>
         </div>
         <Route exact path='/login' render={() => (
@@ -97,11 +102,13 @@ export class Login extends Component {
 }
 
 export const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
+  error: state.error
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  loginUser: (email) => dispatch(loginUser(email))
+  loginUser: (email) => dispatch(loginUser(email)),
+  hasError: (message) => dispatch(hasError(message))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
