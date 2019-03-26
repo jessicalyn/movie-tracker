@@ -3,6 +3,8 @@ import { Component } from "react"
 import { connect } from "react-redux"
 import { loginUser } from "../../Actions/index"
 import { Route, Redirect } from 'react-router'
+import { fetchData } from '../../Utils/fetchData'
+import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator'
 
 export class Signup extends Component {
     constructor(){
@@ -23,22 +25,16 @@ export class Signup extends Component {
     handleSubmit = async (event) => {
       event.preventDefault()
       const url = "http://localhost:3000/api/users/new"
-      const userInfo = {
+      const body = {
         name: this.state.name,
         email: this.state.email,
         password: this.state.password
       }
-       const response = await fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(userInfo),
-          headers:{
-            'Content-Type': 'application/json'
-          }
-        })
-        const result = await response.json()
+      const options = await fetchOptionsCreator('POST', body)
+      const result = await fetchData(url, options)
         if(result.status === "success"){
          return this.props.loginUser(result.id)
-        }else {
+        } else {
           this.setState({
             error: "Email has already been used, please Login."
           })

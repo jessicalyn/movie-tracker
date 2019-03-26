@@ -1,5 +1,5 @@
-export const fetchData = async (url, options) => {
-  const response = await fetch(url, options)
+export const fetchData = async (url, body) => {
+  const response = await fetch(url, body)
   if(!response.ok){
     throw new Error(response.statusText)
   } else {

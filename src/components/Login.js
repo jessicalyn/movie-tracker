@@ -6,8 +6,8 @@ import { connect } from 'react-redux'
 import  user  from '../images/user.png'
 import password from '../images/password-icon.png'
 import './Login.css';
-
-
+import { fetchData } from '../Utils/fetchData'
+import { fetchOptionsCreator } from '../Utils/fetchOptionsCreator'
 
 export class Login extends Component {
   constructor() {
@@ -28,18 +28,12 @@ export class Login extends Component {
     e.preventDefault()
     const { email, password} = this.state
     const url = 'http://localhost:3000/api/users'
-    const data = { email: email.toLowerCase(), password: password }
+    const body = { email: email.toLowerCase(), password: password }
     try {
-      const checkUser = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers:{
-          'Content-Type': 'application/json'
-        }
-      })
-      const response = await checkUser.json()
-      if(response.status === "success"){
-        return this.props.loginUser(response.data.id)
+      const options = await fetchOptionsCreator('POST', body)
+      const result = await fetchData(url, options)
+      if(result.status === "success"){
+        return this.props.loginUser(result.data.id)
       }
     } catch(error) {
       return this.setState({ error: "Email and Password do not match. Please try again or Signup."})

@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { NavLink, Route } from 'react-router-dom'
 import Signup from '../Signup/Signup'
 import Login  from '../../Components/Login'
+import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator';
 
 export class App extends Component {
   constructor(){
@@ -23,7 +24,8 @@ export class App extends Component {
 
   fetchMovies = async () => {
     try {
-      const movies = await fetchData(APIkey)
+      const options = await fetchOptionsCreator('GET')
+      const movies = await fetchData(APIkey, options)
       this.props.addMovies(movies.results)
     } catch(error) {
       this.setState({error: error.message})

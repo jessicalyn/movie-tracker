@@ -4,10 +4,11 @@ import { shallow } from 'enzyme'
 
 describe('fetchData', () => {
   let mockData
+  let url
 
   beforeEach(() => {
-
-    const mockData = [
+    url = "www.movies.com"
+    mockData = [
       {title: "Cars", poster_path: "car.jpg"},
       {title: "How To Train Your Dragon", poster_path: "dragon.jpg"}
     ]
@@ -20,8 +21,6 @@ describe('fetchData', () => {
   })
 
   it('should take an expected url', () => {
-    const url = "www.movies.com"
-
     fetchData(url)
     expect(fetch).toHaveBeenCalledWith(url)
   })
