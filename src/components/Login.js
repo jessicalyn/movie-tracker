@@ -9,6 +9,8 @@ import './Login.css';
 import { fetchData } from '../Utils/fetchData'
 import { fetchOptionsCreator } from '../Utils/fetchOptionsCreator'
 import { fetchUserFavorites } from '../Utils/fetchFavorites'
+import PropTypes from 'prop-types'
+
 
 export class Login extends Component {
   constructor() {
@@ -96,3 +98,10 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
+
+Login.propTypes = {
+  user: PropTypes.object,
+  error: PropTypes.string,
+  hasError: PropTypes.func,
+  updateUser: PropTypes.func
+}

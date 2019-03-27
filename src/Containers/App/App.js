@@ -10,6 +10,7 @@ import Signup from '../Signup/Signup'
 import Login  from '../../Components/Login'
 import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator'
 import Favorites from '../Favorites/Favorites'
+import PropTypes from 'prop-types'
 
 export class App extends Component {
 
@@ -72,3 +73,11 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
+
+App.propTypes = {
+  user: PropTypes.object.isRequired,
+  error: PropTypes.string,
+  hasError: PropTypes.func,
+  logOutUser: PropTypes.func.isRequired,
+  addMovies: PropTypes.func.isRequired
+}

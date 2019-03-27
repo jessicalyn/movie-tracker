@@ -6,6 +6,7 @@ import { Route, Redirect } from 'react-router'
 import { fetchData } from '../../Utils/fetchData'
 import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator'
 import './Signup.css'
+import PropTypes from 'prop-types'
 
 export class Signup extends Component {
   constructor(){
@@ -88,3 +89,10 @@ export const mapDispatchToProps = (dispatch) => ({
   })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup)
+
+Signup.propTypes = {
+  user: PropTypes.object.isRequired,
+  error: PropTypes.string,
+  hasError: PropTypes.func.isRequired,
+  updateUser: PropTypes.func
+}
