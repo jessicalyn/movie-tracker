@@ -43,14 +43,13 @@ export class App extends Component {
             <h1>Movie Tracker</h1>
           </div>
           <div className="nav-box">
-            <NavLink to="/login" className="nav">Login</NavLink>
-            <NavLink to="/signup" className="nav">Sign up </NavLink>
-            <NavLink to="/favorites">Favorites</NavLink>
-            <NavLink to='/'>Home</NavLink>
-          < button onClick={this.logOutUser}>Log Out</button>
+            { !this.props.user.id && <NavLink to="/login" className="nav">Login</NavLink> }
+            { !this.props.user.id && <NavLink to="/signup" className="nav">Sign up </NavLink> }
+            { this.props.user.id && <NavLink to="/favorites" className="nav">Favorites</NavLink> }
+            <NavLink to='/' className="nav">Home</NavLink>
+            { this.props.user.id && <button onClick={this.logOutUser}>Log Out</button> }
           </div>
-          {this.props.user.id && <h4>Welcome {this.props.user.name}!</h4>}
-          { this.props.error && <p>{ this.props.error }</p>}
+          { this.props.error && <p>{ this.props.error }</p> }
           </header>
           <Route exact path='/' component={Movies} />
           <Route exact path='/login' component={Login} />
