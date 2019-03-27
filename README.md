@@ -17,6 +17,9 @@ Movie tracker is an app where we can find now playing movies in theatres. This p
 ## Screeshot of completed project 
 <img width="1433" alt="Screen Shot 2019-03-27 at 9 05 45 AM" src="https://user-images.githubusercontent.com/41176822/55089824-a9199d00-5073-11e9-8786-2b1da5fdfe04.png">
 
+## Original Assignment:
+[Memoize](http://frontend.turing.io/projects/memoize.html) from Turing School of Software and Design
+
 
 
 
