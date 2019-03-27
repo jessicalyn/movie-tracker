@@ -1,6 +1,8 @@
 import React from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
+import './Card.css'
+import heart from '../../images/add.png'
 
 export class Card extends Component {
   constructor(props) {
@@ -59,10 +61,12 @@ export class Card extends Component {
     const path = `https://image.tmdb.org/t/p/w185/${poster}`
     return (
       <section className="card">
-        <h3>{movie.title}</h3>
+        {/* <h3>{movie.title}</h3> */}
         <img src={path} alt={movie.title} />
-        <button onClick={this.addFavorites}>Favorite</button>
-        {this.state.message && this.state.message}
+        <button onClick={this.addFavorites}>
+          <img src={heart}></img>
+        </button>
+        <p>{this.state.message && this.state.message}</p>
       </section>
     )
   }
