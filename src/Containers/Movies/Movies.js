@@ -3,6 +3,7 @@ import { Component } from 'react'
 import  Card  from '../../Components/Card/Card'
 import { connect } from 'react-redux'
 import './Movies.css'
+import PropTypes from 'prop-types'
 
 export class Movies extends Component {
 
@@ -24,3 +25,7 @@ export const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps)(Movies)
+
+Movies.propsTypes = {
+  movies: PropTypes.array.isRequired
+}

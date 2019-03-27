@@ -7,6 +7,7 @@ import { hasError, updateUser } from '../../Actions'
 import { fetchUserFavorites } from "../../Utils/fetchFavorites"
 import './Card.css'
 import heart from '../../images/heart-active.png'
+import PropTypes from 'prop-types'
 
 export class Card extends Component {
 
@@ -99,3 +100,10 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card)
+
+Card.propTypes = {
+  user: PropTypes.object.isRequired,
+  error: PropTypes.string.isRequired,
+  hasError: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired
+}
