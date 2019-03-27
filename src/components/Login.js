@@ -1,21 +1,21 @@
 import { Route, Redirect } from 'react-router'
 import React from "react";
 import { Component } from "react"
-import { loginUser } from '../Actions/index'
+import { updateUser, hasError } from '../Actions/index'
 import { connect } from 'react-redux'
 import  user  from '../images/user.png'
 import password from '../images/password-icon.png'
 import './Login.css';
 import { fetchData } from '../Utils/fetchData'
 import { fetchOptionsCreator } from '../Utils/fetchOptionsCreator'
+import { fetchUserFavorites } from '../Utils/fetchFavorites'
 
 export class Login extends Component {
   constructor() {
     super();
     this.state = {
       email: "",
-      password: "",
-      error: ""
+      password: ""
     };
   }
 
@@ -26,17 +26,22 @@ export class Login extends Component {
 
   validateUser = async (e) => {
     e.preventDefault()
-    const { email, password} = this.state
+    const { email, password } = this.state
     const url = 'http://localhost:3000/api/users'
     const body = { email: email.toLowerCase(), password: password }
     try {
       const options = await fetchOptionsCreator('POST', body)
       const result = await fetchData(url, options)
       if(result.status === "success"){
-        return this.props.loginUser(result.data.id)
+        const favorites = await fetchUserFavorites(result.data.id)
+        return this.props.updateUser({id: result.data.id, name: result.data.name, favorites})
       }
     } catch(error) {
-      return this.setState({ error: "Email and Password do not match. Please try again or Signup."})
+      const message = "Email and Password do not match. Please try again or Signup."
+      this.props.hasError(message)
+        setTimeout(() => {
+          this.props.hasError("")
+        }, 3000)
     }
   }
 
@@ -69,8 +74,7 @@ export class Login extends Component {
                 />
               </div>
           <button>Submit</button>
-          <p className="password-link">Forgot your password?</p>
-          <p className="error-message">{this.state.error}</p>
+          <p className="error-message">{this.props.error}</p>
         </form>
         </div>
         <Route exact path='/login' render={() => (
@@ -82,11 +86,13 @@ export class Login extends Component {
 }
 
 export const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
+  error: state.error
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  loginUser: (email) => dispatch(loginUser(email))
+  updateUser: (id, name, favorites) => dispatch(updateUser(id, name, favorites)),
+  hasError: (message) => dispatch(hasError(message))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
