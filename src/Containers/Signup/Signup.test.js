@@ -1,7 +1,7 @@
 import React from 'react'
 import { Signup, mapStateToProps, mapDispatchToProps } from './Signup'
 import { shallow } from 'enzyme'
-import { loginUser } from '../../Actions'
+import { updateUser } from '../../Actions'
 import { Route, Redirect } from 'react-router'
 
 describe('Signup', () => {
@@ -26,8 +26,7 @@ describe('Signup', () => {
       const mockState = {
         name: "",
         email: "",
-        password: "",
-        error: ""
+        password: ""
       }
       expect(wrapper.state()).toEqual(mockState)
     })
@@ -47,10 +46,9 @@ describe('Signup', () => {
     it('should invoke handleSubmit when form button is clicked', () => {
       const mockHandleSubmit = jest.fn()
       wrapper.find('.signup-button').simulate('click')
-      expect(wrapper.instance().handleSubmit()).toBeCalled()
+      expect(wrapper.instance().mockHandleSubmit()).toBeCalled()
     })
 
-    fetchPost
   })
 
     describe('mapStateToProps', () => {
@@ -74,12 +72,12 @@ describe('Signup', () => {
     })
 
     describe('mapDispatchToProps', () => {
-      it('should call dispatch when using loginUser within mapDispatchToProps', () => {
+      it('should call dispatch when using updateUser within mapDispatchToProps', () => {
         const mockDispatch = jest.fn()
-        const actionToDispatch = loginUser(1)
+        const actionToDispatch = updateUser(1)
         const mappedProps = mapDispatchToProps(mockDispatch)
 
-        mappedProps.loginUser(1)
+        mappedProps.updateUser(1)
 
         expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch)
       })

@@ -1,40 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { userReducer } from './userReducer';
-import * as actions from '../Actions/index';
-import { shallow } from 'enzyme';
+import { userReducer } from './userReducer'
+import * as actions from '../Actions'
 
-describe ('userReducer', () => {
-    
+describe('userReducer', () => {
+  it('should return the initial state', () => {
+    const expected = {}
+    const result = userReducer({}, {})
 
-      it('should return an empty array by default ', () => {
-        const expected = []
-        const result = userReducer(undefined, {})
-        expect(result).toEqual(expected)
-      })
+    expect(result).toEqual(expected)
+  })
 
-      it('should return state with current user info', ()=> {
-          const currentUser = {
-              id: 3,
-              name: "", 
-              favorites: []
-            
-          }
-          const result = userReducer(undefined, actions.loginUser(currentUser.id))
-          expect(result).toEqual(currentUser)
-      })
+  it('should return the state with a user object added when UPDATE_USER type', () => {
+    const initialState = {}
+    const mockUser = {
+      id: 1,
+      name: "Archie",
+      favorites: [
+        {title: "Cars", poster_path: "car.jpg"},
+        {title: "How To Train Your Dragon", poster_path: "dragon.jpg"}
+      ]
+    }
+    const action = actions.updateUser(mockUser)
+    const expected = {
+      id: 1,
+      name: "Archie",
+      favorites: [
+        {title: "Cars", poster_path: "car.jpg"},
+        {title: "How To Train Your Dragon", poster_path: "dragon.jpg"}
+      ]
+    }
+    const result = userReducer(initialState, action)
 
-     it('should clear state when user logs out', () => {
-         const expected = {
-            id: "",
-            name: "", 
-            favorites: []
-         }
-
-         const result = userReducer(undefined, actions.logOutUser())
-         expect(result).toEqual(expected)
-     })
-          
-
-      
+    expect(result).toEqual(expected)
+  })
 })
