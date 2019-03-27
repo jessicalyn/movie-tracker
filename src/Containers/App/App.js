@@ -9,6 +9,7 @@ import { NavLink, Route } from 'react-router-dom'
 import Signup from '../Signup/Signup'
 import Login  from '../../Components/Login'
 import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator'
+import Favorites from '../Favorites/Favorites'
 
 export class App extends Component {
 
@@ -39,8 +40,10 @@ export class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1>Movie Tracker</h1>
-          <NavLink to="/login" className="nav">Login</NavLink>
+          <NavLink to="/login">Login</NavLink>
           <NavLink to="/signup">Sign up</NavLink>
+          <NavLink to="/favorites">Favorites</NavLink>
+          <NavLink to='/'>Home</NavLink>
           <button onClick={this.logOutUser}>Log Out</button>
           {this.props.user.id && <h4>Welcome {this.props.user.name}!</h4>}
           { this.props.error && <p>{ this.props.error }</p>}
@@ -48,6 +51,7 @@ export class App extends Component {
           <Route exact path='/' component={Movies} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup}/>
+          <Route exact path='/favorites' component={Favorites} />
       </div>
     );
   }
