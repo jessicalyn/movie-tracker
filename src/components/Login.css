@@ -15,14 +15,11 @@ form button{
     margin-bottom: 20px;
     font-size: 30px; 
     text-transform: uppercase;
-    /* border: 3px solid #00d7c3; */
     border-radius: 50px;
-    /* background-color: white; */
     background-color: #e50914;
     color: white;
     border: 1px solid white;
-    width: 100%;
-    
+    width: 100%;   
 }
 
 form button:hover{
@@ -60,6 +57,7 @@ form button:focus {
     display: inline-block;
     justify-content: center;
     align-items: center;
+    opacity: 0.4;
 }
 
 .login h3{
@@ -81,7 +79,8 @@ form button:focus {
     width: 30%;
     height: 500px;
     padding: 20px;
-    border: 10px solid black
+    border: 10px solid black;
+    
 }
 
 .login-box form {

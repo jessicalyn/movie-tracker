@@ -39,12 +39,16 @@ export class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Movie Tracker</h1>
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/signup">Sign up</NavLink>
-          <NavLink to="/favorites">Favorites</NavLink>
-          <NavLink to='/'>Home</NavLink>
-          <button onClick={this.logOutUser}>Log Out</button>
+          <div className="header-box">
+            <h1>Movie Tracker</h1>
+          </div>
+          <div className="nav-box">
+            <NavLink to="/login" className="nav">Login</NavLink>
+            <NavLink to="/signup" className="nav">Sign up </NavLink>
+            <NavLink to="/favorites">Favorites</NavLink>
+            <NavLink to='/'>Home</NavLink>
+          < button onClick={this.logOutUser}>Log Out</button>
+          </div>
           {this.props.user.id && <h4>Welcome {this.props.user.name}!</h4>}
           { this.props.error && <p>{ this.props.error }</p>}
           </header>
