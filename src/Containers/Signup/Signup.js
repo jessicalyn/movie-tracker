@@ -1,7 +1,7 @@
 import React from "react";
 import { Component } from "react"
 import { connect } from "react-redux"
-import { loginUser, hasError } from "../../Actions/index"
+import { updateUser, hasError } from "../../Actions/index"
 import { Route, Redirect } from 'react-router'
 import { fetchData } from '../../Utils/fetchData'
 import { fetchOptionsCreator } from '../../Utils/fetchOptionsCreator'
@@ -34,7 +34,7 @@ export class Signup extends Component {
     const options = await fetchOptionsCreator('POST', body)
     const result = await fetchData(url, options)
       if(result.status === "success"){
-       return this.props.loginUser(result.id)
+       return this.props.updateUser({id: result.id, name: this.state.name})
       }
      } catch(error) {
       const message = "Email has already been used, please Login."
@@ -83,7 +83,7 @@ export const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-    loginUser: (userId) => dispatch(loginUser(userId)),
+    updateUser: (id, name) => dispatch(updateUser(id, name)),
     hasError: (message) => dispatch(hasError(message))
   })
 

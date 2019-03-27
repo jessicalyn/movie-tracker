@@ -1,13 +1,14 @@
 import { Route, Redirect } from 'react-router'
 import React from "react";
 import { Component } from "react"
-import { loginUser, hasError } from '../Actions/index'
+import { updateUser, hasError } from '../Actions/index'
 import { connect } from 'react-redux'
 import  user  from '../images/user.png'
 import password from '../images/password-icon.png'
 import './Login.css';
 import { fetchData } from '../Utils/fetchData'
 import { fetchOptionsCreator } from '../Utils/fetchOptionsCreator'
+import { fetchUserFavorites } from '../Utils/fetchFavorites'
 
 export class Login extends Component {
   constructor() {
@@ -25,14 +26,15 @@ export class Login extends Component {
 
   validateUser = async (e) => {
     e.preventDefault()
-    const { email, password} = this.state
+    const { email, password } = this.state
     const url = 'http://localhost:3000/api/users'
     const body = { email: email.toLowerCase(), password: password }
     try {
       const options = await fetchOptionsCreator('POST', body)
       const result = await fetchData(url, options)
       if(result.status === "success"){
-        return this.fetchUserFavorites(result.data.id, result.data.name)
+        const favorites = await fetchUserFavorites(result.data.id)
+        return this.props.updateUser({id: result.data.id, name: result.data.name, favorites})
       }
     } catch(error) {
       const message = "Email and Password do not match. Please try again or Signup."
@@ -41,24 +43,6 @@ export class Login extends Component {
           this.props.hasError("")
         }, 3000)
     }
-  }
-
-  fetchUserFavorites = async (id, name) => {
-    const url = `http://localhost:3000/api/users/${id}/favorites`
-    try {
-      const options = await fetchOptionsCreator('GET')
-      const result = await fetchData(url, options)
-      if(result.status === "success"){
-        const favorites = result.data
-        return this.props.loginUser({id, name, favorites})
-      }
-    } catch(error) {
-      const message = "Error finding favorite movies, please refresh page and try again."
-      this.props.hasError(message)
-        setTimeout(() => {
-          this.props.hasError("")
-        }, 3000)
-      }
   }
 
   render() {
@@ -107,7 +91,7 @@ export const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  loginUser: (email) => dispatch(loginUser(email)),
+  updateUser: (id, name, favorites) => dispatch(updateUser(id, name, favorites)),
   hasError: (message) => dispatch(hasError(message))
 })
 

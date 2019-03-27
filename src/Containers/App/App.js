@@ -25,7 +25,7 @@ export class App extends Component {
       this.props.hasError(error.message)
         setTimeout(() => {
           this.props.hasError("")
-        }, 3000)
+        }, 2000)
       }
     }
 
@@ -43,11 +43,11 @@ export class App extends Component {
           <NavLink to="/signup">Sign up</NavLink>
           <button onClick={this.logOutUser}>Log Out</button>
           {this.props.user.id && <h4>Welcome {this.props.user.name}!</h4>}
+          { this.props.error && <p>{ this.props.error }</p>}
           </header>
           <Route exact path='/' component={Movies} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup}/>
-          { this.props.error && <p>{ this.props.error }</p>}
       </div>
     );
   }
